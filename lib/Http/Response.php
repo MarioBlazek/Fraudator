@@ -6,6 +6,8 @@ class Response
 {
     const HTTP_OK = 200;
 
+    const HTTP_SERVER_ERROR = 500;
+
     /**
      * @var array
      */
@@ -28,6 +30,9 @@ class Response
         $this->data = empty($data) ? [] : json_decode($data, true);
     }
 
+    /**
+     * @return bool
+     */
     public function isOk()
     {
         return $this->code == self::HTTP_OK;

@@ -6,6 +6,7 @@ use Marek\Fraudator\Configuration\Values\Jira;
 use Marek\Fraudator\Configuration\Values\Jiras;
 use Marek\Fraudator\Configuration\Values\Toggl;
 use Marek\Fraudator\Configuration\Values\Worklog;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
 
 class Reader
@@ -25,28 +26,45 @@ class Reader
         $this->config = $this->parse($config);
     }
 
+    /**
+     * @param string $config
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
     protected function parse($config)
     {
         if (!file_exists($config)) {
             throw new \Exception('Config file does not exist');
         }
 
-        $config = file_get_contents($config);
 
-        return Yaml::parse($config);
+        $configuration = Yaml::parse(file_get_contents($config));
+
+        $yamlConfiguration = new Configuration();
+        $procesor = new Processor();
+
+        return $procesor->processConfiguration($yamlConfiguration, [$configuration]);
     }
 
+    /**
+     * @return Toggl
+     */
     public function getToggl()
     {
         return new Toggl(
-            $this->config['fraudator']['toggl']['username'],
-            $this->config['fraudator']['toggl']['password']
+            $this->config['toggl']['username'],
+            $this->config['toggl']['password']
         );
     }
 
+    /**
+     * @return Jiras
+     */
     public function getJira()
     {
-        $jiras = $this->config['fraudator']['jiras'];
+        $jiras = $this->config['jiras'];
 
         $parsed = [];
         foreach ($jiras as $jira) {
@@ -63,11 +81,14 @@ class Reader
         return new Jiras($parsed);
     }
 
+    /**
+     * @return Worklog
+     */
     public function getWorklog()
     {
         return new Worklog(
-            $this->config['fraudator']['worklog']['start_date'],
-            $this->config['fraudator']['worklog']['end_date']
+            $this->config['worklog']['start_date'],
+            $this->config['worklog']['end_date']
         );
     }
 }

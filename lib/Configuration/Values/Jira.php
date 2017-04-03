@@ -2,22 +2,12 @@
 
 namespace Marek\Fraudator\Configuration\Values;
 
-class Jira
+class Jira extends Toggl
 {
     /**
      * @var string
      */
     protected $url;
-
-    /**
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
 
     /**
      * @var int
@@ -34,9 +24,8 @@ class Jira
      */
     public function __construct($id, $url, $username, $password)
     {
+        parent::__construct($username, $password);
         $this->url = $url;
-        $this->username = $username;
-        $this->password = $password;
         $this->id = $id;
     }
 
@@ -46,22 +35,6 @@ class Jira
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**

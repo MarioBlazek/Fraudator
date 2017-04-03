@@ -4,16 +4,28 @@ namespace Marek\Fraudator\Http;
 
 class Request
 {
-    const GET = 'get';
+    const GET = 'GET';
 
-    const POST = 'post';
+    const POST = 'POST';
 
+    /**
+     * @var string
+     */
     protected $auth;
 
+    /**
+     * @var string
+     */
     protected $method;
 
+    /**
+     * @var array
+     */
     protected $data;
 
+    /**
+     * @var string
+     */
     protected $url;
 
     /**

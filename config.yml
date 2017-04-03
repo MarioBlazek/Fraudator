@@ -1,0 +1,19 @@
+#fraudator:
+toggl:
+    username: toggl_username
+    password: password
+jiras:
+    jira_0:
+        id: 123
+        url: jira_url
+        username: jira_username
+        password: password
+    jira_1:
+        id: 123
+        url: jira_url
+        username: jira_username
+        password: password
+worklog:
+    # date in format d-m-y
+    start_date: 27-03-2017
+    end_date: 31-03-2017

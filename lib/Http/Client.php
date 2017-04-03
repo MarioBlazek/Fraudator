@@ -39,7 +39,7 @@ class Client
         $code = $info['http_code'];
 
         if (!empty(curl_error($ch))) {
-            $code = 500;
+            $code = Response::HTTP_SERVER_ERROR;
         }
 
         curl_close($ch);

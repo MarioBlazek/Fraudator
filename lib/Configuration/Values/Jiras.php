@@ -27,9 +27,15 @@ class Jiras
         return $this->jiras;
     }
 
+    /**
+     * @param int $clientId
+     *
+     * @return Jira
+     *
+     * @throws \Exception
+     */
     public function getJiraById($clientId)
     {
-        var_dump($this->jiras);
         $jira = array_filter(
             $this->jiras,
             function(Jira $jira) use ($clientId){
@@ -38,7 +44,7 @@ class Jiras
                 }
             }
         );
-        var_dump($jira);
+
         if (empty($jira)) {
             throw new \Exception();
         }

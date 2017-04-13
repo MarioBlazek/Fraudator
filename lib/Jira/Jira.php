@@ -6,6 +6,7 @@ use Marek\Fraudator\Configuration\Values\Jiras;
 use Marek\Fraudator\Http\Client;
 use Marek\Fraudator\Http\Request;
 use Marek\Fraudator\Jira\Values\Worklog;
+use Marek\Fraudator\Jira\Values\Worklogs;
 use Marek\Fraudator\Toggl\Values\TimeEntry;
 use Marek\Fraudator\Configuration\Values\Jira as JiraConfig;
 
@@ -47,6 +48,26 @@ class Jira
         }
 
         $this->postNewWorkLog($jira, $worklog);
+    }
+
+    public function getWorklog()
+    {
+        $baseUrl = "jira_url";
+        $url = "/rest/tempo-timesheets/3/worklogs?dateFrom=%date_from%&dateTo=%date_to%&username=mario.b@netgen.hr";
+
+        $dateFrom = \DateTime::createFromFormat('d-m-Y', '27-03-2017');
+        $dateTo = \DateTime::createFromFormat('d-m-Y', '31-03-2017');
+
+        $url = str_replace('%date_from%', $dateFrom->format('Y-m-d'), $url);
+        $url = str_replace('%date_to%', $dateTo->format('Y-m-d'), $url);
+
+        $url = $baseUrl . $url;
+
+        $request = new Request(Request::GET, $url, null, "user:password");
+
+        $response = $this->client->execute($request);
+
+        return new Worklogs($response->getData());
     }
 
     /**

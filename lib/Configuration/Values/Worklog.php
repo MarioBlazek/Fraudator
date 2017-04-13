@@ -24,10 +24,11 @@ class Worklog
     {
         $timeZone = new \DateTimeZone('UTC');
         $this->start = \DateTime::createFromFormat('d-m-Y', $start);
-        $this->start->setTime(0,0);
+//        $this->start->setTime(0,0);
         $this->start->setTimezone($timeZone);
         $this->end = \DateTime::createFromFormat('d-m-Y', $end);
-        $this->end->setTime(0,0);
+        $this->start->setTimezone($timeZone);
+//        $this->end->setTime(0,0);
     }
 
     /**
